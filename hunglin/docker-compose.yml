@@ -1,0 +1,15 @@
+services:
+  web:
+    image: erichard56/hunglin-web:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: hunglin
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    volumes:
+      - .:/web
+    ports:
+      - "8001:8000"
+
+

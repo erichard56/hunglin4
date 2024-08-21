@@ -1,0 +1,5 @@
+.vscode
+__pycache__
+MysqlBackup
+venv
+media
