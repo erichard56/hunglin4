@@ -1,6 +1,6 @@
 services:
   web:
-    image: erichard56/hunglin-web:latest
+    image: erichard56/hunglin4-web:latest
     build: 
       context: .
       dockerfile: Dockerfile
@@ -11,5 +11,8 @@ services:
       - .:/web
     ports:
       - "8001:8000"
+  service_name:
+    environment:
+      - DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 

@@ -5,13 +5,11 @@ from django.contrib.auth.models import Group, User
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth import update_session_auth_hash
-import os
 import base64
 from django.conf.urls.static import static
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Max, Q
 import random
-import time
 from bosquetaoista.models import Grado, Casa, Persona, \
 	TipoEvento, Evento, Agenda, Cursante, PersonaExtra, \
 	TipoExtra, TipoEstado, TipoDoc, TipoCursante, Frase
@@ -340,12 +338,14 @@ def personas_lista(request, tipo):
 
 	personas = []
 	for todo in todos:
-		if (todo.foto):
-			foto = base64.b64encode(todo.foto).decode()
-		else:
-			foto = None
+		# if (todo.foto):
+		# 	foto = base64.b64encode(todo.foto).decode()
+		# else:
+		# 	foto = None
+		foto = None
 		personas.append([todo, foto])
 	ctx = { 'pagina':6, 'yosoy':yosoy, 'personas':personas, 'estados':estados }
+	print('voy al html')
 	return(render(request, 'personas_lista.html', ctx))
 
 
