@@ -362,12 +362,11 @@ def persona_am(request, id):
 		if (id == 0):
 			form = PersonaForm()
 			titulo = 'Nueva Persona'
-			foto = ''
 		else:
 			persona = Persona.objects.get(pk = id)
 			form = PersonaForm(instance=persona)
 			titulo = f'Modificación Persona'
-		ctx = { 'pagina':6, 'titulo':titulo, 'form':form, 'pedirfoto':'pedirfoto' }
+		ctx = { 'pagina':6, 'titulo':titulo, 'form':form, 'pedirfoto':'pedirfoto', 'persona':persona }
 		return(render(request, 'general_am.html', ctx))
 
 	elif (request.method == 'POST'):

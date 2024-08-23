@@ -27,18 +27,18 @@
 				<tbody>
 					{% for persona in personas %}
 						<tr>
-							<td>{{ persona.0.orden }}</td>
+							<td>{{ persona.orden }}</td>
 							<td>
-								{% if persona.1 %}
-									<img src="data:image/jpeg;base64, {{ persona.1 }}" height='50' width='50' />
+								{% if persona.foto %}
+									<img src="{% get_media_prefix %}{{ persona.foto}}"  height='50' width='50' />
 								{% else %}
 									<img src="{% get_media_prefix %}/bosquetaoista/nophoto.jpg"  height='50' width='50' alt="" />
 								{% endif %}
-								{{ persona.0.apellido }}, {{ persona.0.nombre }}
+								{{ persona.apellido }}, {{ persona.nombre }}
 							</td>
-							<td>{{ persona.0.grado }}</td>
+							<td>{{ persona.grado }}</td>
 							<td>
-								<a href="{% url 'persona_am' persona.0.id %}" name="c3" title="Modificar Persona"><i class="fa fa-pencil"></i></a>
+								<a href="{% url 'persona_am' persona.id %}" name="c3" title="Modificar Persona"><i class="fa fa-pencil"></i></a>
 							</td>
 						</tr>
 					{% endfor %}

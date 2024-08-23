@@ -75,11 +75,8 @@ class PersonaForm(forms.ModelForm):
 				'celular':'Número de Celular', 
 				'tipodoc':'Tipo de Documento', 
 				'nrodoc':'Número de Documento',
-				# 'foto':'Foto'
+				'foto':'Foto'
 	    }
-
-	# def foto(self, obj):
-	# 	return (format_html('<img src = {} heigth="42"  width="42" /> ', persona.foto.url))
 
 
 class TipoExtraForm(forms.ModelForm):
