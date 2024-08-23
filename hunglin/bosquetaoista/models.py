@@ -48,7 +48,7 @@ class Persona(models.Model):
 	celular = models.CharField(max_length=50, blank=True)
 	tipodoc = models.ForeignKey(TipoDoc, on_delete=models.CASCADE)
 	nrodoc = models.IntegerField(blank=True, default=0)
-	foto = models.BinaryField(blank=True, null=True, editable=True)
+	foto = models.ImageField(upload_to='images/', null=True)
 	def __str__(self):
 		return(self.apellido + ', ' + self.nombre)
 

@@ -206,17 +206,8 @@ def grado_am(request, id):
 @login_required
 def grado_detalle(request, id):
 	grado = Grado.objects.get(pk=id)
-	pers = Persona.objects.filter(grado_id=id).filter(estado__nombre='Activo').order_by('orden')
-	personas = []
-	for per in pers:
-		if (per.foto):
-			foto = base64.b64encode(per.foto).decode()
-		else:
-			foto = None
-		personas.append([per, foto])
-
-	ctx = { 'pagina':2, 'grado':grado, 'personas':personas,
-			'pedirfoto':'pedir' }
+	personas = Persona.objects.filter(grado_id=id).filter(estado__nombre='Activo').order_by('orden')
+	ctx = { 'pagina':2, 'grado':grado, 'personas':personas, 'pedirfoto':'pedir' }
 	return(render(request, 'grado_detalle.html', ctx))
 
 
@@ -279,17 +270,9 @@ def casa_am(request, id):
 @login_required
 def casa_detalle(request, id):
 	casa = Casa.objects.get(pk=id)
-	pers = Persona.objects.filter(casa_practica_id=id).order_by('casa_practica', 'orden')
-	personas = []
-	for per in pers:
-		if (per.foto):
-			foto = base64.b64encode(per.foto).decode()
-		else:
-			foto = None
-		personas.append([per, foto])
+	personas = Persona.objects.filter(casa_practica_id=id).order_by('casa_practica', 'orden')
 	responsables = Persona.objects.filter(responsable_casa_id=id)
-	ctx = { 'pagina':4, 'casa':casa, 
-			'responsables':responsables, 'personas':personas }
+	ctx = { 'pagina':4, 'casa':casa, 'responsables':responsables, 'personas':personas }
 	return(render(request, 'casa_detalle.html', ctx))
 
 
@@ -302,11 +285,11 @@ def personas_lista(request, tipo):
 		yosoy = None
 		tipoestado = TipoEstado.objects.get(nombre='Activo')
 		if (tipo == 0):
-			todos = Persona.objects.all().order_by('estado', 'orden')
+			personas = Persona.objects.all().order_by('estado', 'orden')
 		elif (tipo == 1):
-			todos = Persona.objects.filter(estado=tipoestado.id).order_by('estado', 'orden')
+			personas = Persona.objects.filter(estado=tipoestado.id).order_by('estado', 'orden')
 		else:
-			todos = Persona.objects.exclude(estado=tipoestado.id).order_by('estado', 'orden')
+			personas = Persona.objects.exclude(estado=tipoestado.id).order_by('estado', 'orden')
 
 	elif (request.user.is_staff):
 		# si no es superuser, pero es staff, averiguo si es responsable de casa. 
@@ -315,9 +298,9 @@ def personas_lista(request, tipo):
 		yosoy = Persona.objects.filter(usuario=request.user.username).first()
 		if (yosoy):
 			if (yosoy.responsable_casa):
-				todos = Persona.objects.filter(casa_practica=yosoy.responsable_casa_id).order_by('estado', 'orden')
+				personas = Persona.objects.filter(casa_practica=yosoy.responsable_casa_id).order_by('estado', 'orden')
 			else:
-				todos = None
+				personas = None
 		else:
 			messages.error(request, f'No es usuario')
 			return(redirect('home'))
@@ -329,23 +312,14 @@ def personas_lista(request, tipo):
 		estado_id = int(request.POST['estado'])
 		busq = request.POST['busca']
 		if (busq):
-			todos = Persona.objects.filter(Q(apellido__icontains=busq) | Q(nombre__icontains=busq))
+			personas = Persona.objects.filter(Q(apellido__icontains=busq) | Q(nombre__icontains=busq))
 		else:
 			if (estado_id == 0):
-				todos = Persona.objects.all().order_by('orden')
+				personas = Persona.objects.all().order_by('orden')
 			else:
-				todos = Persona.objects.filter(estado_id=estado_id).order_by('orden')
+				personas = Persona.objects.filter(estado_id=estado_id).order_by('orden')
 
-	personas = []
-	for todo in todos:
-		# if (todo.foto):
-		# 	foto = base64.b64encode(todo.foto).decode()
-		# else:
-		# 	foto = None
-		foto = None
-		personas.append([todo, foto])
 	ctx = { 'pagina':6, 'yosoy':yosoy, 'personas':personas, 'estados':estados }
-	print('voy al html')
 	return(render(request, 'personas_lista.html', ctx))
 
 
@@ -393,17 +367,7 @@ def persona_am(request, id):
 			persona = Persona.objects.get(pk = id)
 			form = PersonaForm(instance=persona)
 			titulo = f'Modificación Persona'
-			if (persona.foto):
-				foto = base64.b64encode(persona.foto).decode()
-				# from PIL import Image
-				# 	imagen = Image.open('algo.jpg')
-				# 	tamano_destino = (2048, 1536)
-				# 	reduccion = imagen.resize(tamano_destino, Image.ANTIALIAS)
-				# 	reduccion.save('algo.jpg')
-			else:
-				foto = ''
-		ctx = { 'pagina':6, 'titulo':titulo, 'form':form, 
-			'foto':foto, 'pedirfoto':'pedirfoto' }
+		ctx = { 'pagina':6, 'titulo':titulo, 'form':form, 'pedirfoto':'pedirfoto' }
 		return(render(request, 'general_am.html', ctx))
 
 	elif (request.method == 'POST'):
@@ -440,15 +404,17 @@ def persona_am(request, id):
 			nrodoc = request.POST['nrodoc']
 			if (nrodoc):
 				persona.nrodoc = nrodoc
-			foto = request.FILES.get('photo', False)
+			# foto = request.FILES.get('photo', False)
+			# if (foto):
+			# 	persona.foto = request.FILES.get('photo').read()
+			# 	if (persona.foto):
+			# 		max_size = 200 * 1014 * 1024
+			# 		if (len(persona.foto) > max_size):
+			# 			messages.error(request, f'Foto demasiado grande ({len(persona.foto)}), Máximo {max_size}.')
+			# 			return(redirect('/persona_am/' + str(id)))
+			foto = request.FILES['photo']
 			if (foto):
-				persona.foto = request.FILES.get('photo').read()
-				print(len(foto))
-				if (persona.foto):
-					max_size = 200 * 1014 * 1024
-					if (len(persona.foto) > max_size):
-						messages.error(request, f'Foto demasiado grande ({len(persona.foto)}), Máximo {max_size}.')
-						return(redirect('/persona_am/' + str(id)))
+				persona.foto = foto
 			persona.save()
 		else:
 			for e in form.errors:
@@ -460,14 +426,9 @@ def persona_am(request, id):
 @login_required
 def persona_detalle(request, id):
 	persona = Persona.objects.get(pk = id)
-	if (persona.foto):
-		foto = base64.b64encode(persona.foto).decode()
-	else:
-		foto = ''
 	cursantes = Cursante.objects.filter(persona_id = id).order_by('tipocursante__nombre')
 	personaextras = PersonaExtra.objects.filter(persona_id = id).order_by('tipoextra__nombre')
-	ctx = { 'pagina':6, 'persona':persona, 'foto':foto,
-			'cursantes':cursantes, 'personaextras':personaextras }
+	ctx = { 'pagina':6, 'persona':persona, 'cursantes':cursantes, 'personaextras':personaextras }
 	return(render(request, 'persona_detalle.html', ctx))
 
 
@@ -962,3 +923,4 @@ def carga_frases(request, flag):
 			i += 1
 
 	return(redirect('/personas_lista/1'))
+

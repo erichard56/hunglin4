@@ -9,8 +9,8 @@
 	<div class="center">
 		<div class="form">
 			<div class="row align-items-start">
-				{% if foto %}
-					<img src="data:image/jpeg;base64, {{ foto }}" height='100' width='100' />
+				{% if persona.foto %}
+					<img src="{% get_media_prefix %}/imagen/{{ persona.foto }}"  height='50' width='50' />
 				{% else %}
 					<img src="{% get_media_prefix %}/bosquetaoista/nophoto.jpg"  height='50' width='50' alt="" />
 				{% endif %}

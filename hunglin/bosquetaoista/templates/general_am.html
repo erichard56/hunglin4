@@ -20,8 +20,8 @@
 					<br>
 					{{ form|crispy }}
 					{% if pedirfoto %}
-						{% if foto %}
-							<img src="data:image/jpeg;base64,{{ foto }}" height='100' width='100' alt="">
+						{% if persona.foto %}
+							<img src="{% get_media_prefix %}/images/{{ persona.foto }}"  height='50' width='50' alt="">
 						{% else %}
 							<img src="{% get_media_prefix %}/bosquetaoista/nophoto.jpg"  height='50' width='50' alt="" />
 						{% endif %}
