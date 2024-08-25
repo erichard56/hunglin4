@@ -54,7 +54,7 @@ class PersonaForm(forms.ModelForm):
 			'usuario', 'grado', 'casa_practica', 'responsable_casa', 
 			'direccion', 'localidad', 'codigo_postal', 'email',
 			'fechanacimiento', 'fechaingreso', 'fechaegreso',
-			'celular', 'tipodoc', 'nrodoc') #, 'foto', )
+			'celular', 'tipodoc', 'nrodoc', 'foto', 'certificado', )
 
 		labels = {
 				'estado':'Estado',
@@ -75,9 +75,20 @@ class PersonaForm(forms.ModelForm):
 				'celular':'Número de Celular', 
 				'tipodoc':'Tipo de Documento', 
 				'nrodoc':'Número de Documento',
-				'foto':'Foto'
+				'foto':'Foto',
+				'certificado':'Certificado'
 	    }
-
+		widgets = {
+			'estado': forms.Select(attrs={'style':'width:100px'}),
+			'orden': forms.NumberInput(attrs={'style':'width:100px'}),
+			'grado': forms.Select(attrs={'style':'width:200px'}),
+			'casa_practica': forms.Select(attrs={'style':'width:200px'}),
+			'responsable_casa': forms.Select(attrs={'style':'width:200px'}),
+			'direccion': forms.TextInput(attrs={'style':'width:300px'}),
+			'localidad': forms.TextInput(attrs={'style':'width:300px'}),
+			'email': forms.EmailInput(attrs={'style':'width:300px'}),
+			'tipodoc': forms.Select(attrs={'style':'width:100px'}),
+		}
 
 class TipoExtraForm(forms.ModelForm):
 	class Meta:

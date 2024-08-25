@@ -292,9 +292,11 @@ def personas_lista(request, tipo):
 			personas = Persona.objects.exclude(estado=tipoestado.id).order_by('estado', 'orden')
 
 	elif (request.user.is_staff):
-		# si no es superuser, pero es staff, averiguo si es responsable de casa. 
-		# si es responsable de casa, muestro a todas las personas de esa casa
-		# si no es responsable de casa, no muestro nada
+		'''
+			si no es superuser, pero es staff, averiguo si es responsable de casa. 
+			si es responsable de casa, muestro a todas las personas de esa casa
+			si no es responsable de casa, no muestro nada
+		'''
 		yosoy = Persona.objects.filter(usuario=request.user.username).first()
 		if (yosoy):
 			if (yosoy.responsable_casa):
@@ -367,16 +369,16 @@ def persona_am(request, id):
 			form = PersonaForm(instance=persona)
 			titulo = f'Modificación Persona'
 		ctx = { 'pagina':6, 'titulo':titulo, 'form':form, 'pedirfoto':'pedirfoto', 'persona':persona }
-		return(render(request, 'general_am.html', ctx))
+		return(render(request, 'persona_am.html', ctx))
 
 	elif (request.method == 'POST'):
 		form = PersonaForm(data=request.POST, files=request.FILES)
-		if (form.is_valid()):
+		if (True): # (form.is_valid()):
 			if (id == 0):
 				persona = Persona()
 			else:
 				persona = Persona.objects.get(pk = id)
-			if (request.POST['apellido'] == 'Durán Agra'):
+			if ('Agra' in request.POST['apellido'] and 'Hector' in request.POST['nombre']):
 				persona.orden = 0
 			else:
 				persona.orden = get_next_orden(id, request.POST['orden'])
@@ -411,9 +413,12 @@ def persona_am(request, id):
 			# 		if (len(persona.foto) > max_size):
 			# 			messages.error(request, f'Foto demasiado grande ({len(persona.foto)}), Máximo {max_size}.')
 			# 			return(redirect('/persona_am/' + str(id)))
-			foto = request.FILES['photo']
+			foto = request.FILES.get('foto', False)
 			if (foto):
-				persona.foto = foto
+				persona.foto = request.FILES['foto']
+			certificado = request.FILES.get('certificado', False)
+			if (certificado):
+				persona.certificado = request.FILES['certificado']
 			persona.save()
 		else:
 			for e in form.errors:
