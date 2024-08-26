@@ -49,7 +49,7 @@ class Persona(models.Model):
 	tipodoc = models.ForeignKey(TipoDoc, on_delete=models.CASCADE)
 	nrodoc = models.IntegerField(blank=True, default=0)
 	foto = models.ImageField(upload_to='images/', null=True, blank=True)
-	certificado = models.FileField(upload_to='certificado/', null=True, blank=True)
+	certificado = models.FileField(upload_to='certificados/', null=True, blank=True)
 
 	def __str__(self):
 		return(self.apellido + ', ' + self.nombre)
