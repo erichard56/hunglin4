@@ -369,7 +369,7 @@ def persona_am(request, id):
 			form = PersonaForm(instance=persona)
 			titulo = f'Modificación Persona'
 		ctx = { 'pagina':6, 'titulo':titulo, 'form':form, 'pedirfoto':'pedirfoto', 'persona':persona }
-		return(render(request, 'persona_am.html', ctx))
+		return(render(request, 'general_am.html', ctx))
 
 	elif (request.method == 'POST'):
 		form = PersonaForm(data=request.POST, files=request.FILES)
