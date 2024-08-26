@@ -71,7 +71,7 @@
 							<a href="{% url 'persona_am' persona.id %}" title="Modificar Persona"><i class="fa fa-pencil"></i></a>
 							<a href="{% url 'persona_detalle' persona.id %}" title="Detalles Persona"><i class="fa-solid fa-file-lines"></i></a>
 							<a href="{% url 'persona_tipoextras_lista' persona.id %}" name="c3" title="Información Extra"><i class="fa fa-info"></i></a>
-							{% if persona.0.estado.nombre == 'Activo' %}
+							{% if persona.estado.nombre == 'Activo' %}
 								<a href="{% url 'persona_cambia_estado' persona.id %}" onclick="return confirm('Esta seguro?')" title="Marcar No Activo"><i class="fa-regular fa-face-smile"></i></a>
 							{% else %}
 								<a href="{% url 'persona_cambia_estado' persona.id %}" onclick="return confirm('Esta seguro?')" title="Marcar Activo"><i class="fa-solid fa-face-frown"></i></a>
