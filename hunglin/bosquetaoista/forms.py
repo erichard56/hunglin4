@@ -98,7 +98,11 @@ class TipoExtraForm(forms.ModelForm):
 		}
 		labels ={
 			'nombre':'Nombre',
-			'descripcion':'Descripción'
+			'descripcion':'Desripcion',
+		}
+		widgets = {
+			'nombre':forms.TextInput(attrs={'style':'width:300px'}),
+			'descripcion':forms.TextInput(attrs={'style':'width:300px'}),
 		}
 
 class PersonaExtraForm(forms.ModelForm):
