@@ -1,8 +1,7 @@
 .DS_Store
 .vscode
 .venv
-__pycache__
-MysqlBackup
+*.pyc
 media/certificado
 media/images
-mediaprod
+hunglin/.env
