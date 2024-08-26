@@ -1,6 +1,8 @@
+.DS_Store
 .vscode
+.venv
 __pycache__
 MysqlBackup
-venv
-media
-../Fotos_Originales
+media/certificado
+media/images
+mediaprod
