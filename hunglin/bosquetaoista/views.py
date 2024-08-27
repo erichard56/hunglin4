@@ -413,8 +413,12 @@ def persona_am(request, id):
 			# 		if (len(persona.foto) > max_size):
 			# 			messages.error(request, f'Foto demasiado grande ({len(persona.foto)}), Máximo {max_size}.')
 			# 			return(redirect('/persona_am/' + str(id)))
+			max_size = 200 * 1024 * 1024
 			foto = request.FILES.get('foto', False)
 			if (foto):
+				if (len(foto) > max_size):
+					messages.error(request, f'Foto demasiado grande ({len(foto)}), Máximo {max_size}.')
+					return(redirect('/persona_am/' + str(id)))
 				persona.foto = request.FILES['foto']
 			certificado = request.FILES.get('certificado', False)
 			if (certificado):
@@ -927,4 +931,3 @@ def carga_frases(request, flag):
 			i += 1
 
 	return(redirect('/personas_lista/1'))
-

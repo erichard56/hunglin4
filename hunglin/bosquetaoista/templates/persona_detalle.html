@@ -19,15 +19,15 @@
 				<tr>
 					<td>
 						{% if persona.foto %}
-							<img src="{% get_media_prefix %}{{ persona.foto }}" height='230' width='230' />
+							<img src="{{{ persona.foto.url }}" height='300' width='300' />
 						{% else %}
-							<img src="{% get_media_prefix %}/bosquetaoista/nophoto.jpg" height='230' width='230' alt="" />
+							<img src="{% get_media_prefix %}/bosquetaoista/nophoto.jpg" height='300' width='300' alt="" />
 						{% endif %}
 						<br><br>
 						{% if persona.certificado %}
-							<img src="{% get_media_prefix %}{{ persona.certificado }}" height='230' width='230' />
+							<img src="{{ persona.certificado.url }}" height='300' width='300' />
 						{% else %}
-							<img src="{% get_media_prefix %}/bosquetaoista/nocert.png" height='230' width='230' alt="" />
+							<img src="{% get_media_prefix %}/bosquetaoista/nocert.png" height='300' width='300' alt="" />
 						{% endif %}
 					</td>
 					<td>
