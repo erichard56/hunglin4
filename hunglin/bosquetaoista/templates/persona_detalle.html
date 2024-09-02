@@ -21,13 +21,13 @@
 						{% if persona.foto %}
 							<img src="{{ persona.foto.url }}" height='300' width='300' />
 						{% else %}
-							<img src="{% get_media_prefix %}/bosquetaoista/nophoto.jpg" height='300' width='300' alt="" />
+							<img src="{% get_media_prefix %}bosquetaoista/nophoto.jpg" height='300' width='300' alt="" />
 						{% endif %}
 						<br><br>
 						{% if persona.certificado %}
 							<img src="{{ persona.certificado.url }}" height='300' width='300' />
 						{% else %}
-							<img src="{% get_media_prefix %}/bosquetaoista/nocert.png" height='300' width='300' alt="" />
+							<img src="{% get_media_prefix %}bosquetaoista/nocert.png" height='300' width='300' alt="" />
 						{% endif %}
 					</td>
 					<td>
