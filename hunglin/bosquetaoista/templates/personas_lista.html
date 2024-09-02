@@ -64,7 +64,7 @@
 						{% endif %}
 						{{ persona.apellido }}, {{ persona.nombre }}
 					</td>
-					<td class="hover" data-type="name">{{ persongrado }}</td>
+					<td class="hover" data-type="name">{{ persona.grado }}</td>
 					<td class="hover" data-type="name">{{ persona.casa_practica }}</td>
 					<td>
 						{% if request.user.is_superuser or request.user.is_staff %}
