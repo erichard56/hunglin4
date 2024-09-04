@@ -53,10 +53,10 @@
 				</tr>
 			{%	endif %}
 			{% for persona in personas %}
-				<tr data-type="element" data-id={{ persona.id }}>
-					<td class="hover" data-type="id">{{ persona.orden }}</td>
-					<td class="hover" data-type="activo">{{ persona.estado }}</td>
-					<td class="hover" data-type="id">
+				<tr data-type="element">
+					<td class="hover">{{ persona.orden }}</td>
+					<td class="hover">{{ persona.estado }}</td>
+					<td class="hover">
 						{% if persona.foto %}
 							<img src="{{ persona.foto.url }}" height='50' width='50' />
 						{% else %}

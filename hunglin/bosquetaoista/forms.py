@@ -109,11 +109,16 @@ class PersonaExtraForm(forms.ModelForm):
 	class Meta:
 		model = PersonaExtra
 		fields = {
-			'comentario', 'tipoextra', 
+			'tipoextra',
+			'comentario', 
 		}
 		labels ={
 			'tipoextra':'Extra',
 			'comentario':'Comentario',
+		}
+		widgets = {
+			'tipoextra':forms.Select(attrs={'style':'width:300px'}),
+			'comentario':forms.Textarea(attrs={'style':'width:300px', 'rows':4, 'columns':80 }),
 		}
 
 
