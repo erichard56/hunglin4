@@ -405,14 +405,6 @@ def persona_am(request, id):
 			nrodoc = request.POST['nrodoc']
 			if (nrodoc):
 				persona.nrodoc = nrodoc
-			# foto = request.FILES.get('photo', False)
-			# if (foto):
-			# 	persona.foto = request.FILES.get('photo').read()
-			# 	if (persona.foto):
-			# 		max_size = 200 * 1014 * 1024
-			# 		if (len(persona.foto) > max_size):
-			# 			messages.error(request, f'Foto demasiado grande ({len(persona.foto)}), Máximo {max_size}.')
-			# 			return(redirect('/persona_am/' + str(id)))
 			max_size = 200 * 1024 * 1024
 			foto = request.FILES.get('foto', False)
 			if (foto):
