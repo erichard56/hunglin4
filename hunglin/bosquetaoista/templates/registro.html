@@ -10,7 +10,17 @@
 		<div id="registro">
 			<form method="POST" action="" name="registro">
 				{% csrf_token %}
-				{{ form|crispy }}
+				<table>
+					<!-- { { form|crispy }} -->
+					{% for f in form %}
+						<tr>
+							<td width="20%"></td>
+							<td>{{ f.label_tag }}</td>
+							<td>{{ f }}</td> 
+							<td width="20%"></td>
+						</tr>
+					{% endfor %}
+				</table>
 				<br>
 				<button class="btn blue" onclick="location.href='{% url 'home' %}' ;">Volver</button>
 				<input type="submit" name="registro" class="btn blue" value="Confirmar" />
