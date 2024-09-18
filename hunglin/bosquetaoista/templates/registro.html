@@ -2,8 +2,6 @@
 
 {% load static %}
 
-{% load crispy_forms_tags %}
-
 {% block cuerpo %}
 
 	<div id="content">
@@ -11,7 +9,6 @@
 			<form method="POST" action="" name="registro">
 				{% csrf_token %}
 				<table>
-					<!-- { { form|crispy }} -->
 					{% for f in form %}
 						<tr>
 							<td width="20%"></td>
