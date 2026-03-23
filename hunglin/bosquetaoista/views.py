@@ -285,11 +285,11 @@ def personas_lista(request, tipo):
 		yosoy = None
 		tipoestado = TipoEstado.objects.get(nombre='Activo')
 		if (tipo == 0):
-			personas = Persona.objects.all().order_by('estado', 'orden')
+			personas = Persona.objects.all().order_by('estado', 'orden') 
 		elif (tipo == 1):
-			personas = Persona.objects.filter(estado=tipoestado.id).order_by('estado', 'orden')
+			personas = Persona.objects.filter(estado=tipoestado.id).order_by('estado', 'orden') 
 		else:
-			personas = Persona.objects.exclude(estado=tipoestado.id).order_by('estado', 'orden')
+			personas = Persona.objects.exclude(estado=tipoestado.id).order_by('estado', 'orden') 
 
 	elif (request.user.is_staff):
 		'''
@@ -300,7 +300,7 @@ def personas_lista(request, tipo):
 		yosoy = Persona.objects.filter(usuario=request.user.username).first()
 		if (yosoy):
 			if (yosoy.responsable_casa):
-				personas = Persona.objects.filter(casa_practica=yosoy.responsable_casa_id).order_by('estado', 'orden')
+				personas = Persona.objects.filter(casa_practica=yosoy.responsable_casa_id).order_by('estado', 'orden') 
 			else:
 				personas = None
 		else:
@@ -314,12 +314,12 @@ def personas_lista(request, tipo):
 		estado_id = int(request.POST['estado'])
 		busq = request.POST['busca']
 		if (busq):
-			personas = Persona.objects.filter(Q(apellido__icontains=busq) | Q(nombre__icontains=busq))
+			personas = Persona.objects.filter(Q(apellido__icontains=busq) | Q(nombre__icontains=busq)) 
 		else:
 			if (estado_id == 0):
-				personas = Persona.objects.all().order_by('orden')
+				personas = Persona.objects.all().order_by('orden') 
 			else:
-				personas = Persona.objects.filter(estado_id=estado_id).order_by('orden')
+				personas = Persona.objects.filter(estado_id=estado_id).order_by('orden') 
 
 	ctx = { 'pagina':6, 'yosoy':yosoy, 'personas':personas, 'estados':estados }
 	return(render(request, 'personas_lista.html', ctx))
@@ -362,23 +362,24 @@ def get_next_orden(id, porden):
 def persona_am(request, id):
 	if (request.method == 'GET'):
 		if (id == 0):
+			persona = Persona()
 			form = PersonaForm()
 			titulo = 'Nueva Persona'
 		else:
 			persona = Persona.objects.get(pk = id)
 			form = PersonaForm(instance=persona)
 			titulo = f'Modificación Persona'
-		ctx = { 'pagina':6, 'titulo':titulo, 'form':form, 'pedirfoto':'pedirfoto', 'persona':persona }
+		ctx = { 'pagina':6, 'titulo':titulo, 'form':form, 'persona':persona, 'pedirfoto':'pedirfoto' }
 		return(render(request, 'general_am.html', ctx))
 
 	elif (request.method == 'POST'):
 		form = PersonaForm(data=request.POST, files=request.FILES)
-		if (True): # (form.is_valid()):
+		if (True):			# (form.is_valid()):
 			if (id == 0):
 				persona = Persona()
 			else:
 				persona = Persona.objects.get(pk = id)
-			if ('Agra' in request.POST['apellido'] and 'Hector' in request.POST['nombre']):
+			if (request.POST['apellido'] == 'Durán Agra'):
 				persona.orden = 0
 			else:
 				persona.orden = get_next_orden(id, request.POST['orden'])
@@ -410,16 +411,16 @@ def persona_am(request, id):
 			if (foto):
 				if (len(foto) > max_size):
 					messages.error(request, f'Foto demasiado grande ({len(foto)}), Máximo {max_size}.')
-					return(redirect('/persona_am/' + str(id)))
+					return(redirect('persona_am/' + str(id)))
 				persona.foto = request.FILES['foto']
-			certificado = request.FILES.get('certificado', False)
+			certificado = request.FILES.get('certificado',False)
 			if (certificado):
 				persona.certificado = request.FILES['certificado']
 			persona.save()
 		else:
 			for e in form.errors:
 				messages.error(request, f'error {e}')
-			return(redirect('/persona_am/' + str(id)))
+			return(redirect('persona_am/' + str(id)))
 	return(redirect('/personas_lista/1'))
 
 
@@ -923,3 +924,4 @@ def carga_frases(request, flag):
 			i += 1
 
 	return(redirect('/personas_lista/1'))
+

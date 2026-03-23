@@ -1,0 +1,178 @@
+orden;apellido;nombre;fechanacimiento;fechaingreso;nrodoc
+1;Doñate;Carlos;NULL;1979-01-01;0
+2;Sada;Guillermo;NULL;1979-01-01;0
+3;Bravo;Mabel;NULL;1979-01-01;0
+4;Ricardo;Alejandro;NULL;1979-01-01;0
+5;Ingaramo;Carlos;NULL;1980-01-01;0
+6;"Monte Negro";Daniel;NULL;1980-01-01;0
+7;Donadello;Marcelo;NULL;1980-01-01;0
+8;Blythman;Guillermo;NULL;1980-01-01;0
+9;"Alvarez Holmberg";Alejandro;NULL;1980-01-01;0
+10;"Alvarez Holmberg";Guillermo;NULL;1980-01-01;0
+11;Alda;;NULL;1980-01-01;0
+12;Riggio;Marcela;NULL;1980-01-01;0
+13;Garisto;Estela;NULL;1981-01-01;0
+14;Brusca;Estela;NULL;1981-01-01;0
+15;Palermo;Eduardo;NULL;1981-01-01;0
+16;Bracamonte;Sergio;NULL;1981-01-01;0
+17;Laponi;Rubén;NULL;1981-01-01;0
+18;Lamorgia;Oscar;1958-10-05;1981-01-01;12753152
+19;Laba;Alicia;NULL;1982-01-01;0
+20;Pozo;Graciela;NULL;1982-01-01;0
+21;"Benegas ";Gerardo;NULL;1983-01-01;0
+22;"Silvia ";Silvia;NULL;1983-01-01;0
+23;Vieyra;Nestor;NULL;1983-01-01;0
+24;"Alvarez Holmberg";Marcelo;NULL;1983-01-01;0
+25;Hector;Hector;NULL;1984-01-01;0
+26;Sosa;"Daniel Roberto";NULL;1984-01-01;0
+27;Allaria;"Maria Elena";NULL;1984-01-01;0
+30;Gulino;Ruben;NULL;1985-03-01;0
+31;Lebsberng;Guillermo;NULL;1985-09-01;0
+33;Sosa;Miriam;NULL;1985-11-01;0
+34;Migniona;Alejandro;NULL;1986-01-01;0
+35;Landra;Cristina;NULL;1987-01-01;0
+36;Romano;Jose;NULL;1987-01-01;0
+37;Romano;Romina;NULL;1987-01-01;0
+38;"de la Torre";"Jose Maria";NULL;1988-01-01;0
+39;Cordero;Jorge;NULL;1988-01-01;0
+40;Letelle;Manuel;NULL;1988-01-01;0
+41;"Lopez Gonzalez";"Maria Teresa";NULL;1988-01-01;0
+42;Favier;Cristian;NULL;1988-01-01;0
+45;"de Molier";Betty;NULL;1988-01-01;0
+52;Finochietto;Martin;NULL;1989-01-01;0
+53;Cerrato;Adriana;NULL;1989-01-01;0
+54;Blythman;Guillermo;NULL;1989-01-01;0
+55;Beretervide;Gloria;NULL;1989-01-01;0
+56;Cinthia;Cinthia;NULL;1989-01-01;0
+59;Manuel;"Juan M";NULL;1990-01-01;0
+60;"Llanos ";"Victor Hugo";NULL;1990-01-01;0
+61;"De Llanos";Donata;NULL;1991-01-01;0
+62;Rodriguez;Raul;1956-10-02;1991-01-01;12481313
+63;Abelenda;"Maria de los A";NULL;1991-01-01;0
+64;Lafalce;Carmen;NULL;1991-01-01;0
+65;Silberberg;"Adriana Laura";1972-03-28;1991-01-01;22668494
+66;Tuñez;"Daniel ";1956-12-06;1991-01-01;0
+67;Valorani;Guillermo;NULL;1991-01-01;0
+69;Alvarez;Hilda;NULL;1991-04-01;0
+71;Ferracutti;Alejandro;NULL;1991-04-01;0
+72;Visitacion;;NULL;1991-04-01;0
+73;Isola;Gabriel;NULL;1991-04-01;0
+74;Vacarazza;Silvia;NULL;1994-04-01;0
+76;Hase;;NULL;1991-04-01;0
+79;Flores;Maria;1961-01-04;1992-04-01;14408473
+80;Peralta;"Hugo Oscar";1935-05-16;1992-04-01;4152571
+81;Golmberg;"Vera a";1962-05-05;1992-04-01;16171469
+82;Tondon;Margarita;NULL;1992-04-01;0
+85;Andreo;Pablo;NULL;1993-01-01;0
+90;Leal;Blanca;1956-09-14;1996-04-01;12685800
+93;Arenas;"Beatriz Haydee";NULL;1998-01-01;0
+94;Andreo;"Hugo Omar";1942-10-16;1998-01-01;6649635
+95;Eletia;Valeria;1968-06-25;1998-01-01;20281635
+104;Dominguez;"Beatriz Adriana";NULL;2000-01-01;0
+107;Barcus;Norma;1946-06-20;2002-01-01;3986498
+108;Alimena;"Silvia G";1966-04-11;2002-07-29;18161197
+109;Soto;"Edit G";1937-10-18;2002-04-22;3626146
+110;"Gesto Souto";Luz;1941-12-09;2002-04-22;4296275
+115;Ortigoza;"Cesar R";1943-12-23;2001-08-26;4434467
+117;Sanguineti;Delia;1943-04-19;2002-09-30;4709056
+118;Gómez;Isabel;1968-09-17;2002-09-30;94491373
+119;Gil;Eduardo;1936-11-09;2002-09-30;4856131
+125;"Gil Auger";Fernando;1976-10-24;2002-12-26;25557671
+126;Higa;Noemi;1968-03-26;2003-01-03;20200981
+127;Oya;Ricardo;1967-04-12;2003-01-03;0
+128;Arlega;Gloria;1948-03-23;2003-03-02;5700980
+129;Burzachechi;"Hugo D";1959-04-06;2002-12-02;13111221
+131;Strygacz;"Felix A";1958-03-30;2003-03-10;12013779
+132;-----;Anulada;NULL;NULL;0
+133;-----;Anulada;NULL;NULL;0
+135;Garcia;Ingrid;1979-02-15;2003-03-01;27067670
+136;Hidalgo;Anabella;1979-01-25;2003-04-01;27178320
+137;Rodriguez;"Maria Sol";1986-06-15;2003-04-21;92779811
+138;Sanaríais;"Lía Bernise";1986-06-15;2003-04-24;30505857
+139;"Ya ello";"Maria Beatriz ";1968-09-07;2003-05-30;20250737
+143;Piriz;Florencia;1969-09-23;2003-06-01;20573655
+144;Romero;"Maria Antonia";1934-03-07;2003-07-14;1803163
+145;Gulminelli;Monica;1955-03-12;2003-08-08;11477770
+146;Martinez;"Eveline Edith";1963-04-26;2003-09-01;16570818
+147;Gomez;"Alvina Jovina";1947-04-18;2003-09-01;5644533
+150;Lucero;"Jorge Osvaldo";1956-10-27;2004-02-16;12792292
+159;"La Greca";"Maria Fabiana";1971-03-12;2004-04-13;22126065
+160;Bein;Graciela;1951-01-08;2004-03-25;10383171
+161;Fernandez;"Juan Domingo";1953-02-18;2004-03-08;10691676
+162;Merolla;Liliana;1957-02-02;2004-03-04;11181308
+163;Boglio;Alejandro;1963-03-02;2004-02-09;16209106
+164;Martinez;"Héctor Raul";1955-09-21;2004-05-08;11842840
+165;"Diaz ";Hernan;1959-11-08;2004-11-01;14038878
+167;Traba;Marta;1949-11-10;2005-04-15;0
+171;Degiorgio;Graciela;1965-01-15;2006-10-19;17172119
+172;Schargorosdky;Rosa;1960-08-24;2006-11-01;14986713
+173;Gonzalez;Maria;2028-07-13;2007-02-15;199983
+174;Olivo;Alicia;1956-06-26;2007-02-15;12086878
+175;Vainstoin;Javier;2012-01-01;2007-02-15;25250827
+176;Moyano;"Liliana Maria";1956-01-28;2007-02-15;12088674
+177;Randon;Federico;1979-12-22;2007-04-01;27859378
+178;Fassi;Graciela;1954-11-29;2007-04-14;11384888
+179;Degiorgio;Graciela;1965-01-15;2006-10-19;17172119
+180;-----;Anulada;NULL;NULL;0
+181;Ramos;Fernando;1980-07-11;2007-05-31;28322091
+182;Castaño;Gustavo;1974-09-12;2007-05-31;24155485
+183;Allievi;Veronica;1962-09-23;2007-07-11;16821459
+184;Cespedes;Jose;1955-05-31;2007-08-02;12079120
+185;Llorens;Mariela;1975-01-15;2007-08-04;24424279
+186;Rodriguez;Oscar;1966-07-02;2007-09-01;17789139
+187;Vigilio;"Isabel Estela";1947-10-30;2007-11-01;5752308
+188;Vidal;"Genaro Jose";1944-04-19;2007-11-01;4435782
+189;Lettieri;"Mariana Lidia";1976-04-24;2009-03-31;25296158
+190;Cainzos;Mario;1942-05-07;2009-03-31;4391347
+191;Carnero;"José Alberto";1949-06-16;2009-04-06;7837457
+196;Bialogorski;"Raquel Rosa";1945-02-21;2009-04-04;5094103
+197;Tomino;"Ana Silvia";1963-12-20;2009-05-18;16822498
+198;Gonzalez;Sebastian;2001-01-01;2009-04-13;21537490
+199;Ramirez;Amanda;1947-03-20;2009-06-01;6358461
+200;Stuart;Alejandro;1961-03-27;2008-06-02;14315955
+201;"Chantada Beloso";Antonio;1956-05-17;2008-02-01;12046372
+202;"Muñoz de los Santos";Daiana;1982-02-16;2009-09-01;29355083
+204;Ferreyros;"Mabel Alicia";1957-01-24;2009-09-01;12776710
+206;Bonnardel;"Juan Carlos";1944-02-08;2009-09-01;4429049
+207;"de Ratti";Augusto;2026-02-19;2009-10-01;0
+208;Cassaglia;Eduardo;1972-04-18;2009-11-01;22767309
+210;Solari;"Nelida Ester";1952-11-10;2010-07-01;10365203
+212;"Nausa Fortt";"Silvia Susana";1943-05-20;2005-07-03;4659802
+214;Longari;"Graciela Beatriz";1951-01-27;2009-06-22;6357407
+215;Gandon;"Nédar Abelardo";1926-09-23;2009-09-07;6454668
+216;Suarez;Marcela;1963-08-05;2009-10-27;16945373
+218;González;"Sebastián Marcos";1970-03-06;2010-04-08;21537490
+220;López;"Jorge Alberto";1955-11-01;2010-09-01;11755735
+221;Lopez;"Daniel Roberto";1960-02-26;2010-09-01;13554597
+223;"Di Domenico";"Ernesto Miguel Angel";1962-05-15;2010-10-01;14847862
+224;Ronza;"Olga Beatriz Noemi";1947-09-25;2010-11-01;5675623
+225;Arteaga;"Ernesto Ricardo";1960-12-27;2011-02-03;14214429
+228;Luchessi;"Liliana Nora";1940-01-27;2011-04-01;3953294
+230;Ambrosini;"Luis Enrique";1958-05-29;2011-05-01;12446421
+235;Scalzo;"Norberto Mario";1975-01-26;2012-04-02;24466722
+236;Lantaron;Cristina;1961-04-20;2012-04-05;14555589
+238;Montesano;Ricardo;1948-02-04;2010-04-01;7612938
+239;Robino;"Elsa Susana";1963-02-03;2011-07-01;16589294
+250;Seghezzi;Mariano;1988-10-09;2012-05-12;33991813
+251;Foremny;"Marcela Carmen";1965-09-23;2012-05-12;17654794
+255;Convertini;"Marcelo Angel";1962-04-19;2013-04-01;14619690
+261;Arellano;Eugenio;1974-07-27;2014-11-04;24800224
+263;Piñero;"Ana Elena";1947-12-18;2014-11-15;5753103
+264;Sarli;"Maria del Carmen";1953-06-20;2015-02-15;10138931
+267;Russo;"Maria Ester";1951-05-10;2015-03-03;6683961
+268;Tegli;"Derna Emilia";1939-11-16;2015-03-12;9259729
+269;Grimaudo;Walter;1970-07-07;2015-03-12;21758061
+270;Sosa;"Nora Elida";1967-03-01;2014-02-04;18268325
+274;Muñoz;"Flavia Romina";1985-12-21;2015-05-05;32037507
+275;Elizondo;Martina;2006-05-03;2015-05-05;47206471
+276;Massa;Claudia;1968-06-07;2015-05-05;20055715
+279;Fernandez;Rosalia;1939-05-13;2015-05-01;1785643
+281;Quiroz;Alexis;2002-06-26;2015-10-01;0
+282;Quiroz;Karina;1992-08-11;2015-10-01;36919624
+283;Fernandez;"Claudia Magdalena";1962-01-27;2015-10-27;14945705
+301;Bianchi;Laura;1949-10-31;2018-05-05;6356641
+320;"SALDAÑA ";"GUSTAVO PABLO";1970-10-01;2021-06-30;21832334
+321;Tejedor;"Rosa Angelica";1964-05-30;2022-10-30;17577237
+322;Leonelli;"Angel Alberto";1964-04-05;2023-03-01;16626940
+323;"Aquino Macedo";"Ruth Liliana";1968-09-12;2022-09-04;94034610
+324;Odriozola;"Juan Emilio";1980-10-05;2023-05-13;27883485

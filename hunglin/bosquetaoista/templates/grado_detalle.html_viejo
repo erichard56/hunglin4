@@ -34,16 +34,14 @@
 						<td>
 							<a href="{% url 'persona_am' persona.id %}" name="c3" title="Modificar Persona"><i class="fa fa-pencil"></i></a>
 							<a href="{% url 'persona_detalle' persona.id %}" title="Detalles Persona"><i class="fa-solid fa-file-lines"></i></a>
-
 						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+
+		<div class="clear" style="margin-bottom:40px;"></div>
+		<div class="border" style="margin-bottom:30px;"></div>
 	</div>
-
-	<div class="clear" style="margin-bottom:40px;"></div>
-	<div class="border" style="margin-bottom:30px;"></div>
-
 </div>
 {% endblock %}

@@ -7,39 +7,38 @@
 <div class="wrapper-pad">
 	<h2>{{ titulo }}</h2>
 
+	<form method="post" action="" class="form-horizontal" enctype='multipart/form-data'>
+		{% csrf_token %}
+		<table>
+			{% for field in form %}
+				<tr>
+					<td width="20%"></td>
+					<td>
+						{% if 'Foto' in field.label|stringformat:'s' %}
+							{% if persona.foto %}
+								<img src="{{ persona.foto.url }}" height='50' width='50' />
+							{% endif %}
+						{% endif %}
+						{% if 'Certificado' in field.label|stringformat:'s' %}
+							{% if persona.certificado %}
+								<img src="{{ persona.certificado.url }}" height='50' width='50' />
+							{% endif %}
+						{% endif %}
+						{{ field.label_tag }}
+					</td>
+					<td>{{ field }}</td>
+					<!-- <td>{ { field.label_tag }} { { field }}</td>  -->
+				</tr>
+			{% endfor %}
+		</table>
+		<br>
+		<input type="submit" class="ni btn blue" value="Guardar datos" />
+		<br><br>
+	</form>
 
-<form method="post" action="" class="form-horizontal" enctype='multipart/form-data'>
-	{% csrf_token %}
-	<table>
-		{% for field in form %}
-			<tr>
-				<td width="20%"></td>
-				<td>
-					{% if 'Foto' in field.label|stringformat:'s' %}
-						{% if persona.foto %}
-							<img src="{{ persona.foto.url }}" height='50' width='50' />
-						{% endif %}
-					{% endif %}
-					{% if 'Certificado' in field.label|stringformat:'s' %}
-						{% if persona.certificado %}
-							<img src="{{ persona.certificado.url }}" height='50' width='50' />
-						{% endif %}
-					{% endif %}
-					{{ field.label_tag }}
-				</td>
-				<td>{{ field }}</td>
-				<!-- <td>{ { field.label_tag }} { { field }}</td>  -->
-			</tr>
-		{% endfor %}
-	</table>
-	<br>
-	<input type="submit" class="ni btn blue" value="Guardar datos" />
-	<br><br>
-</form>
-	</div>
-		
 	<div class="clear" style="margin-bottom:40px;"></div>
 	<div class="border" style="margin-bottom:30px;"></div>
 
 </div>
 {% endblock %}
+
