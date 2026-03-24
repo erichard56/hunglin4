@@ -12,7 +12,11 @@
 		<select name="estado" style="width:100px; height:25px;">
 			<option value="0">Todos</option>
 			{% for estado in estados %}
-				<option value="{{ estado.id }}">{{ estado.nombre }}s</option>
+				{% if estado.id == estado_id %}
+					<option value="{{ estado.id }}" selected="selected">{{ estado.nombre }}s</option>
+				{% else %}
+					<option value="{{ estado.id }}">{{ estado.nombre }}s</option>
+				{% endif %}
 			{% endfor %}
 		</select>
 		<input type="submit" value="Mostrar" class="btn blue frigth">

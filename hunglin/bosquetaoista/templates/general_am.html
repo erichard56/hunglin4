@@ -26,8 +26,30 @@
 						{% endif %}
 						{{ field.label_tag }}
 					</td>
-					<td>{{ field }}</td>
+					<!-- <td>{ { field }}</td> -->
 					<!-- <td>{ { field.label_tag }} { { field }}</td>  -->
+					<td>
+					{% if pagina != 4 %}
+						{{ field }}
+					{% else %}
+						{% if 'Activa' in field.label_tag|stringformat:'s' %}
+							<select name="activa" style="width:100px; height:25px;" align="right">
+								<option value="1"
+								{% if field.value == 1 %}
+									selected="selected"
+								{% endif %}	
+								>Activa</option>
+								<option value="0"
+								{% if field.value == 0 %}
+									selected="selected"
+								{% endif %}	
+								>No Activa</option>
+							</select>
+						{% else %}
+							{{ field }}
+						{% endif %}
+					{% endif %}
+					</td>
 				</tr>
 			{% endfor %}
 		</table>

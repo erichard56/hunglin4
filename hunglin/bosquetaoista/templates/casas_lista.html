@@ -10,6 +10,28 @@
 		<a href="{% url 'casa_am' 0 %}" name="nueva_casa" class="btn blue fright"><i class="fa fa-plus"></i>Nueva Casa</a> <br>
 	</h2>
 
+	<form method="POST" action="">
+		{% csrf_token %}
+		<select name="estado" style="width:100px; height:25px;" align="right">
+			<option value="2"
+			{% if estado_id == 2 %}
+				selected="selected"
+			{% endif %}
+			 >Todas</option>
+			<option value="1"
+			{% if estado_id == 1 %}
+				selected="selected"
+			{% endif %}
+			>Activas</option>
+			<option value="0"
+			{% if estado_id == 0 %}
+				selected="selected"
+			{% endif %}
+			>No Activas</option>
+		</select>
+		<input type="submit" value="Mostrar" class="btn blue frigth">
+	</form>
+
 	<table border="1" rules="rows" id="casas_lista" >
 			<thead>
 				<tr>

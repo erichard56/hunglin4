@@ -27,10 +27,11 @@ class GradoForm(forms.ModelForm):
 class CasaForm(forms.ModelForm):
 	class Meta:
 		model = Casa
-		fields = ('nombre', 'direccion')
+		fields = ('nombre', 'direccion', 'activa')
 		labels = {
 				'nombre':'Nombre',
-				'direccion':'Dirección'
+				'direccion':'Dirección',
+				'activa':'Activa'
 	    }
 
 class TipoEstadoForm(forms.ModelForm):
@@ -133,16 +134,18 @@ class TipoEventoForm(forms.ModelForm):
 class EventoForm(forms.ModelForm):
 	class Meta:
 		model = Evento
-		fields = ('tipo', 'nombre', 'descripcion')
+		fields = ('tipo', 'nombre', 'descripcion', 'fecha')
 		labels = {
 				'tipo':'Tipo',
 				'nombre':'Nombre',
-				'descripcion':'Descripción'
+				'descripcion':'Descripción',
+				'fecha':'Fecha Evento'
 	    }
 		widgets = {
 			'tipo':forms.Select(attrs={'style':'width:300px'}),
 			'nombre':forms.TextInput(attrs={'style':'width:300px' }),
-			'descripcion':forms.TextInput(attrs={'style':'width:300px' }),
+			'descripcion':forms.TextInput(attrs={'style':'width:500px' }),
+			'fecha': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
 		}
 
 class AgendaForm(forms.ModelForm):

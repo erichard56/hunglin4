@@ -11,6 +11,7 @@ class Grado(models.Model):
 class Casa(models.Model):
 	nombre = models.CharField(max_length=200)
 	direccion = models.CharField(max_length=200)
+	activa = models.IntegerField(default=1)
 
 	def __str__(self):
 		return(self.nombre)
@@ -78,6 +79,7 @@ class Evento(models.Model):
 	tipo = models.ForeignKey(TipoEvento, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=30)
 	descripcion = models.CharField(max_length=200)
+	fecha = models.DateField()
 
 	def __str__(self):
 		return(self.nombre)

@@ -159,6 +159,7 @@ def grados_lista(request):
 	grados = []
 	activo = TipoEstado.objects.get(nombre='Activo')
 	noactivo = TipoEstado.objects.get(nombre='No Activo')
+	fallecido = TipoEstado.objects.get(nombre='Fallecido')
 	todos = Grado.objects.all().order_by('id')
 	for grado in todos:
 		activos = Persona.objects.filter(grado_id=grado.id).filter(estado_id=activo.id).count()
@@ -167,7 +168,10 @@ def grados_lista(request):
 		noactivos = Persona.objects.filter(grado_id=grado.id).filter(estado_id=noactivo.id).count()
 		if (not noactivos):
 			noactivos = 0
-		grados.append([grado.id, grado.nombre, activos, noactivos])
+		fallecidos = Persona.objects.filter(grado_id=grado.id).filter(estado_id=fallecido.id).count()
+		if (not fallecidos):
+			fallecidos = 0
+		grados.append([grado.id, grado.nombre, activos, noactivos, fallecidos])
 	ctx = { 'pagina':2, 'grados':grados }
 	return(render(request, 'grados_lista.html', ctx))
 
@@ -206,8 +210,17 @@ def grado_am(request, id):
 @login_required
 def grado_detalle(request, id):
 	grado = Grado.objects.get(pk=id)
-	personas = Persona.objects.filter(grado_id=id).filter(estado__nombre='Activo').order_by('orden')
-	ctx = { 'pagina':2, 'grado':grado, 'personas':personas, 'pedirfoto':'pedir' }
+	estados = TipoEstado.objects.all().order_by('nombre')
+	estado_id = 0
+	if (request.method == 'POST'):
+		estado_id = int(request.POST['estado'])
+		if (estado_id > 0):
+			personas = Persona.objects.filter(grado_id=id).filter(estado_id=estado_id).order_by('grado', 'orden')
+#	personas = Persona.objects.filter(grado_id=id).filter(estado__nombre='Activo').order_by('orden')
+	if (estado_id == 0):
+		personas = Persona.objects.filter(grado_id=id).order_by('orden')
+	ctx = { 'pagina':2, 'grado':grado, 'personas':personas, 'pedirfoto':'pedir', 
+		'estados':estados, 'estado_id':estado_id}
 	return(render(request, 'grado_detalle.html', ctx))
 
 
@@ -215,7 +228,17 @@ def grado_detalle(request, id):
 @login_required
 def casas_lista(request):
 	todos = []
-	casas = Casa.objects.all().order_by('id')
+	estado_id = 1
+	casas = Casa.objects.filter(activa=1).order_by('nombre')
+	if (request.method == 'POST'):
+		estado_id = int(request.POST['estado'])
+		if (estado_id == 1):
+			casas = Casa.objects.filter(activa=1).order_by('nombre')
+		elif (estado_id == 0):
+			casas = Casa.objects.filter(activa=0).order_by('nombre')
+		else:
+			casas = Casa.objects.all().order_by('nombre')
+
 	for casa in casas:
 		personas = Persona.objects.filter(responsable_casa=casa.id)
 		responsable = ''
@@ -232,7 +255,7 @@ def casas_lista(request):
 		qfallecidos = Persona.objects.filter(casa_practica_id=casa.id).filter(estado__nombre='Fallecido').count()
 		todos.append([casa.id, casa.nombre, casa.direccion, responsable, 
 						qactivos, qnoactivos, qfallecidos])
-	ctx = { 'pagina':4, 'casas':todos }
+	ctx = { 'pagina':4, 'casas':todos, 'estado_id':estado_id }
 	return(render(request, 'casas_lista.html', ctx))
 
 
@@ -260,6 +283,7 @@ def casa_am(request, id):
 				casa = Casa.objects.get(pk = id)
 				casa.nombre = request.POST['nombre']
 				casa.direccion = request.POST['direccion']
+				casa.activa = request.POST['activa']
 				casa.save()
 		else:
 			for e in form.errors:
@@ -269,10 +293,18 @@ def casa_am(request, id):
 
 @login_required
 def casa_detalle(request, id):
+	estados = TipoEstado.objects.all().order_by('nombre')
 	casa = Casa.objects.get(pk=id)
 	personas = Persona.objects.filter(casa_practica_id=id).order_by('casa_practica', 'orden')
+	estado_id = 0
+	if (request.method == 'POST'):
+		estado_id = int(request.POST['estado'])
+		if (estado_id > 0):
+			personas = Persona.objects.filter(casa_practica_id=id).filter(estado_id=estado_id).order_by('casa_practica', 'orden')
+#	personas = Persona.objects.filter(casa_practica_id=id).order_by('casa_practica', 'orden')
 	responsables = Persona.objects.filter(responsable_casa_id=id)
-	ctx = { 'pagina':4, 'casa':casa, 'responsables':responsables, 'personas':personas }
+	ctx = { 'pagina':4, 'casa':casa, 'responsables':responsables, 'personas':personas,
+		'estados':estados, 'estado_id':estado_id }
 	return(render(request, 'casa_detalle.html', ctx))
 
 
@@ -310,6 +342,7 @@ def personas_lista(request, tipo):
 		messages.error(request, f'Debe ser superuser o staff')
 		return(redirect('home'))
 
+	estado_id = 0
 	if (request.method == 'POST'):
 		estado_id = int(request.POST['estado'])
 		busq = request.POST['busca']
@@ -321,7 +354,7 @@ def personas_lista(request, tipo):
 			else:
 				personas = Persona.objects.filter(estado_id=estado_id).order_by('orden') 
 
-	ctx = { 'pagina':6, 'yosoy':yosoy, 'personas':personas, 'estados':estados }
+	ctx = { 'pagina':6, 'yosoy':yosoy, 'personas':personas, 'estados':estados, 'estado_id':estado_id }
 	return(render(request, 'personas_lista.html', ctx))
 
 
@@ -567,8 +600,11 @@ def tipoevento_am(request, id):
 
 # Eventos
 @login_required
-def eventos_lista(request):
-	eventos = Evento.objects.all().order_by('id')
+def eventos_lista(request, orden):
+	if (orden == 0):
+		eventos = Evento.objects.all().order_by('tipo')
+	else:
+		eventos = Evento.objects.all().order_by('fecha')
 	ctx = { 'pagina':8, 'eventos':eventos }
 	return(render(request, 'eventos_lista.html', ctx))
 
@@ -597,20 +633,24 @@ def evento_am(request, id):
 				evento.tipo_id = request.POST['tipo']
 				evento.nombre = request.POST['nombre']
 				evento.descripcion = request.POST['descripcion']
+				evento.fecha = request.POST['fecha']
 				evento.save()
 		else:
 			for e in form.errors:
 				messages.error(request, f'error {e}')
-	return(redirect('eventos_lista'))
+	return(redirect('eventos_lista', 0))
 
 
 @login_required
-def evento_detalles(request, id):
+def evento_detalles(request, id, orden):
 	evento = Evento.objects.get(pk=id)
 	agendas = Agenda.objects.filter(evento_id=id).order_by('-fecha')
 	todos = []
 	for agenda in agendas:
-		cursantes = Cursante.objects.filter(agenda_id=agenda.id).order_by('persona_id__apellido', 'tipocursante_id__nombre')
+		if (orden == 0):
+			cursantes = Cursante.objects.filter(agenda_id=agenda.id).order_by('persona_id__apellido', 'tipocursante_id__nombre')
+		else:
+			cursantes = Cursante.objects.filter(agenda_id=agenda.id).order_by('tipocursante_id__nombre', 'persona_id__apellido')
 		todos.append([agenda, cursantes])
 	ctx = { 'pagina':8, 'evento':evento, 'todos':todos }
 	return(render(request, 'evento_detalles.html', ctx))

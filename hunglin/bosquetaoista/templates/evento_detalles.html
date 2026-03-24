@@ -9,6 +9,9 @@
 
 	{% for todo in todos %}
 		<h3>{{ todo.0.fecha }} - {{ todo.0.orador }}</h3>
+		<button class="btn blue" onclick="location.href='{% url 'evento_detalles' evento.id 0 %}' ;">Ord Persona</button>
+		<button class="btn blue" onclick="location.href='{% url 'evento_detalles' evento.id 1 %}' ;">Ord Estado</button>
+
 		<table border="1" rules="rows" id="eventos_lista" >
 			<thead>
 				<tr>

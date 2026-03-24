@@ -13,9 +13,10 @@
 	<table border="1" rules="rows" id="grados_lista" >
 		<thead>
 			<tr>
-				<td width="40%">Nombre</td>
+				<td width="25%">Nombre</td>
 				<td width="15%">Activos</td>
 				<td width="15%">No Activos</td>
+				<td width="15%">Fallecidos</td>
 				<td width="20%">Acciones</td>
 			</tr>
 		</thead>
@@ -25,6 +26,7 @@
 					<td>{{ grado.1 }}</td>
 					<td>{{ grado.2 }}</td>
 					<td>{{ grado.3 }}</td>
+					<td>{{ grado.4 }}</td>
 					<td>
 						<a href="{% url 'grado_am' grado.0 %}" name="c3" title="Modificar Grado"><i class="fa fa-pencil"></i></a>
 						<a href="{% url 'grado_detalle' grado.0 %}" name="c3" title="Integrantes"><i class="fa fa-users" aria-hidden="true"></i></a>
