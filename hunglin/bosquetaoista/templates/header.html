@@ -59,6 +59,11 @@
 						<li {% if pagina == 2 %} class="active" {% endif %}><a href="{% url 'grados_lista' %}" title="Grados"><i class="fa-solid fa-graduation-cap"></i> Grados</a></li>
 						<li {% if pagina == 12 or pagina == 13 %} class="active" {% endif %}><a href="{% url 'tipoeventos_lista' %}" title="Agenda"><i class="fa fa-list-ul"></i> Tipo Eventos</a></li>
 						<li {% if pagina == 14 or pagina == 15 %} class="active" {% endif %}><a href="{% url 'tipoextras_lista' %}" title="Agenda"><i class="fa fa-list-ul"></i> Extras</a></li>
+						<!-- <li { % if pagina == 16 or pagina == 17 %} class="active" { % endif %}><a href="{% url 'libros_lista' %}" title="Agenda"><i class="fa fa-list-ul"></i> Libros</a></li> -->
+						<li {% if pagina == 16 or pagina == 17 %} class="active" {% endif %}><a href="{% url 'libros_lista' %}" title="Agenda"><i class="fa fa-list-ul"></i> Libros</a></li>
+						<li {% if pagina == 16 or pagina == 17 %} class="active" {% endif %}><a href="{% url 'actas_lista' %}" title="Agenda"><i class="fa fa-list-ul"></i> Actas Lista</a></li>
+						<li {% if pagina == 16 or pagina == 17 %} class="active" {% endif %}><a href="{% url 'acta_buscar' %}" title="Agenda"><i class="fa fa-list-ul"></i> Busqueda por palabras</a></li>
+						</div>
 					{% endif %}
 				</ul>
 			</div>

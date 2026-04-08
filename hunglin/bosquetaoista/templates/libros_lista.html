@@ -1,0 +1,47 @@
+{% extends 'header.html' %}
+
+{% load static %}
+
+{% block cuerpo %}
+		
+<div class="wrapper-pad">
+	<h2>Libros 		
+		<div class="fright" style="height:5px; margin-right:55px;"></div>
+		<a href="{% url 'libro_am' 0 %}" name="nueva_casa" class="btn blue fright"><i class="fa fa-plus"></i>Nuevo Libro</a> <br>
+	</h2>
+
+	<table border="1" rules="rows" id="casas_lista" >
+			<thead>
+				<tr>
+					<td width="20%">Color</td>
+					<td width="10%">Numero</td>
+					<td width="15%">Fecha de Inicio</td>
+					<td width="15%">Fecha de Cierre</td>
+					<td width="10%">Cant.Actas</td>
+					<td width="10%">Acciones</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for libro in libros %}
+					<tr data-type="element">
+						<td>{{ libro.0.color }}</td>
+						<td>{{ libro.0.numero }}</td>
+						<td>{{ libro.0.fecha_inicio|date:"d/m/Y" }}</td>
+						<td>{{ libro.0.fecha_cierre|date:"d/m/Y" }}</td>
+						<td>{{ libro.1 }}</td>
+						<td>
+							<a href="{% url 'libro_am' libro.0.id %}" title="Modificar Libro"><i class="fa fa-pencil"></i></a>
+							<a href="{% url 'libro_detalles' libro.0.id %}" title="Actas"><i class="fa fa-files-o" aria-hidden="true"></i></a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+	
+	<div class="clear" style="margin-bottom:40px;"></div>
+	<div class="border" style="margin-bottom:30px;"></div>
+</div>
+
+{% endblock %}

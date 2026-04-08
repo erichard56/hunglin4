@@ -1,0 +1,40 @@
+{% extends 'header.html' %}
+
+{% load static %}
+
+{% block cuerpo %}
+
+<div class="wrapper-pad">
+	<h2>Busqueda por palabras clave</h2>
+	<br>
+	<form method="post" action="" class="form-horizontal" enctype='multipart/form-data'>
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>Colores: </td>
+				<td>
+					<select name="color" style="width:100px; height:25px;">
+						<option value="Todos" selected="selected">Todos</option>
+						{% for color in colores %}
+							<option value="{{ color }}">{{ color }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Palabras Clave:</td>
+				<td>
+					<input type="text" name="claves" value="{{ acta.claves }}" style="margin-bottom: 20px;">
+				</td>
+			</tr>
+		</table>
+		<input type="submit" class="ni btn blue" value="Buscar" />
+		<br><br>
+	</form>
+
+	<div class="clear" style="margin-bottom:40px;"></div>
+	<div class="border" style="margin-bottom:30px;"></div>
+
+</div>
+{% endblock %}
+

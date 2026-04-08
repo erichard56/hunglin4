@@ -1,0 +1,55 @@
+{% extends 'header.html' %}
+
+{% load static %}
+
+{% block cuerpo %}
+
+<div class="wrapper-pad">
+	<h2>{{ titulo }}</h2>
+
+	<form method="post" action="" class="form-horizontal" enctype='multipart/form-data'>
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>Numero de Acta: </td>
+				<td><input type="number" name="nro_acta" value="{{ nro_acta }}" style="margin-bottom: 20px;"></td>
+			</tr>
+			<tr>
+				<td>TItulo:</td>
+				<td><input type="text" name="titulo" value="{{ acta.titulo }}" style="margin-bottom: 20px;"></td>
+			</tr>
+			{% if acta.id != None %}
+				<tr>
+					<td>Folios: Click Derecho -> Abrir Imagen para agrandar</td>
+					<td>
+						{% for folio in folios %}
+							<img src="{{ folio.2 }}" alt="Image" height='100' width='100' style="margin-bottom: 20px;">
+							<a href="{% url 'folio_borrar' acta.nro_acta folio.0 %}" title="Eliminar folio" style="margin-right: 20px;"><i class="fa fa-eraser"></i></a>
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td>Agregar Folio</td>
+					<td>
+						<input type="file" name="folio">
+						<button type="submit" style="margin-bottom: 20px;">Subir</button> 
+					</td>
+				</tr>
+			{% endif %}
+			<tr>
+				<td>Palabras Clave:</td>
+				<td>
+					<input type="text" name="claves" value="{{ acta.claves }}" style="margin-bottom: 20px;">
+				</td>
+			</tr>
+		</table>
+		<input type="submit" class="ni btn blue" value="Guardar datos" />
+		<br><br>
+	</form>
+
+	<div class="clear" style="margin-bottom:40px;"></div>
+	<div class="border" style="margin-bottom:30px;"></div>
+
+</div>
+{% endblock %}
+

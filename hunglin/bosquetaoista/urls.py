@@ -6,12 +6,14 @@ from bosquetaoista.views import personas_lista, persona_am, \
     persona_detalle, persona_tipoextras_lista, persona_tipoextra_am, \
     persona_cambia_estado
 from bosquetaoista.views import tipoextras_lista, tipoextra_am
-from bosquetaoista.views import tipoeventos_lista, tipoevento_am
-from bosquetaoista.views import eventos_lista, evento_am, evento_detalles
+from bosquetaoista.views import tipoeventos_lista, tipoevento_borrar, tipoevento_am
+from bosquetaoista.views import eventos_lista, evento_borrar, evento_am, evento_detalles
 from bosquetaoista.views import agendas_lista, agenda_am, \
     agenda_cursantes, agenda_cursante_estado
 from bosquetaoista.views import ayuda
 from bosquetaoista.views import cargacsv, carga_frases
+from bosquetaoista.views import libros_lista, libro_am, libro_detalles
+from bosquetaoista.views import actas_lista, acta_am, acta_buscar, folio_borrar
 
 urlpatterns = [
     path('', ingresar, name = 'ingresar'),
@@ -35,8 +37,10 @@ urlpatterns = [
     path('tipoextras_lista', tipoextras_lista, name = 'tipoextras_lista'),
     path('tipoextra_am/<int:id>', tipoextra_am, name = 'tipoextra_am'),
     path('tipoeventos_lista/', tipoeventos_lista, name = 'tipoeventos_lista'),
+    path('tipoevento_borrar/<int:id>', tipoevento_borrar, name = 'tipoevento_borrar'),
     path('tipoevento_am/<int:id>', tipoevento_am, name = 'tipoevento_am'),
     path('eventos_lista/<int:orden>', eventos_lista, name = 'eventos_lista'),
+    path('evento_borrar/<int:id>', evento_borrar, name = 'evento_borrar'),
     path('evento_am/<int:id>', evento_am, name = 'evento_am'),
     path('evento_detalles/<int:id>/<int:orden>', evento_detalles, name = 'evento_detalles'),
     path('agendas_lista/', agendas_lista, name = 'agendas_lista'),
@@ -44,6 +48,13 @@ urlpatterns = [
     path('agenda_cursantes/<int:id>', agenda_cursantes, name = 'agenda_cursantes'),
     path('agenda_cursante_estado/<int:agid>/<int:cuid>/<estado>', agenda_cursante_estado, name = 'agenda_cursante_estado'),
     path('ayuda', ayuda, name = 'ayuda'),
+    path('libros_lista/', libros_lista, name = 'libros_lista'),
+    path('libro_am/<int:id>', libro_am, name = 'libro_am'),
+    path('libro_detalles/<int:id>', libro_detalles, name = 'libro_detalles'),
+    path('actas_lista', actas_lista, name = 'actas_lista'),
+    path('acta_buscar', acta_buscar, name = 'acta_buscar'),
+    path('acta_am/<int:libro_id>/<int:acta_id>', acta_am, name = 'acta_am'),
+    path('folio_borrar/<int:nro_acta>/<str:folio>', folio_borrar, name = 'folio_borrar'),
 
     path('cargacsv/<int:datos>', cargacsv, name = 'cargacsv'),
     path('carga_frases/<int:flag>', carga_frases, name = 'carga_frases'),

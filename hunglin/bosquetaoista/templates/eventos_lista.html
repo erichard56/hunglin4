@@ -29,9 +29,10 @@
 					<td class="hover" data-type="id">{{ evento.tipo }}</td>
 					<td class="hover" data-type="name">{{ evento.nombre }}</td>
 					<td class="hover" data-type="name">{{ evento.descripcion }}</td>
-					<td class="hover" data-type="fecha">{{ evento.fecha|date:"d/m/y" }}</td>
+					<td class="hover" data-type="fecha">{{ evento.fecha|date:"d/m/Y" }}</td>
 					<td>
 						<a href="{% url 'evento_am' evento.id %}" name="c3" title="Modificar Evento"><i class="fa fa-pencil"></i></a>
+						<a href="{% url 'evento_borrar' evento.id %}" name="c3" title="Borrar Evento"><i class="fa fa-trash"></i></a>
 						<a href="{% url 'evento_detalles' evento.id 0 %}" name="c3" title="Participantes al Evento"><i class="fa fa-users"></i></a>
 					</td>
 				</tr>

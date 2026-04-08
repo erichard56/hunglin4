@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from bosquetaoista.models import Grado, Casa, Persona, TipoDoc
 from bosquetaoista.models import TipoEvento, Evento, Agenda, Cursante
 from bosquetaoista.models import TipoExtra, PersonaExtra, TipoEstado, Frase
+from bosquetaoista.models import Libro, Acta
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length = 65)
@@ -183,3 +184,19 @@ class FraseForm(forms.ModelForm):
 				'frase':'Frase',
 				'detalle':'Detalle'
 	    }
+
+class LibroForm(forms.ModelForm):
+	class Meta:
+		model = Libro
+		fields = ('color', 'numero', 'fecha_inicio', 'fecha_cierre')
+		labels = {
+			'color':'Color',
+			'numero':'Numero',
+			'fecha_inicio':'Fecha de Inicio',
+			'fecha_cierre':'Fecha de Cierre',
+		}
+		widgets = {
+			'fecha_inicio': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+			'fecha_cierre': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
+		}
+

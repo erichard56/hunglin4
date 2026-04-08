@@ -25,6 +25,7 @@
 						<td>{{ tipoevento.descripcion }}</td>
 						<td>
 							<a href="{% url 'tipoevento_am' tipoevento.id %}" name="c3" title="Modificar Tipo de Evento"><i class="fa fa-pencil"></i></a>
+							<a href="{% url 'tipoevento_borrar' tipoevento.id %}" name="c3" title="Borrar Tipo de Evento"><i class="fa fa-trash"></i></a>
 						</td>
 					</tr>
 				{% endfor %}

@@ -1,0 +1,45 @@
+{% extends 'header.html' %}
+
+{% load static %}
+
+{% block cuerpo %}
+		
+<div class="wrapper-pad">
+	<div class="center">
+		<h1>Libro {{ libro.color }} - {{ libro.numero}} ({{ libro.descripcion }})</h1>
+		<h2>Actas
+			<div class="fright" style="height:5px; margin-right:55px;"></div>
+			<a href="{% url 'acta_am' libro.id 0 %}" name="nueva_acta" class="btn blue fright"><i class="fa fa-plus"></i>Nueva Acta</a> <br>
+		</h2>
+
+		<table border="1" rules="rows" id="casas_lista" >
+			<thead>
+				<tr>
+					<td width="20%">Nro Acta</td>
+					<td width="15%">Folios</td>
+					<td width="30%">Titulo</td>
+					<td widtth="40%">Palabras Clave</td>
+					<td widtth="5%">Acciones</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for acta in actas %}
+					<tr>
+						<td>{{ acta.0.nro_acta }}</td>
+						<td>{{ acta.1 }}</td>
+						<td>{{ acta.0.titulo }}</td>
+						<td>{{ acta.0.claves }}</td>
+						<td>
+							<a href="{% url 'acta_am' libro.id acta.0.id %}" name="c3" title="Modificar Acta"><i class="fa fa-pencil"></i></a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="clear" style="margin-bottom:40px;"></div>
+	<div class="border" style="margin-bottom:30px;"></div>
+
+</div>
+{% endblock %}

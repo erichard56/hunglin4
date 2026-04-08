@@ -1,0 +1,39 @@
+{% extends 'header.html' %}
+
+{% load static %}
+
+{% block cuerpo %}
+		
+<div class="wrapper-pad">
+	<h2>Reporte de Actas</h2>
+	<br>
+	<table border="1" rules="rows" id="actas_lista" >
+		<thead>
+			<tr>
+				<td width="20%">Nro Acta</td>
+				<td width="30%">Titulo</td>
+				<td width="30%">Palabras Clave</td>
+				<td width="10%">Acciones</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for acta in actas %}
+				<tr data-type="element">
+					<td>{{ acta.nro_acta }}</td>
+					<td>{{ acta.titulo }}</td>
+					<td>{{ acta.claves }}</td>
+					<td>
+						<a href="{% url 'acta_am' acta.libro_id acta.id %}" title="Modificar Libro"><i class="fa-solid fa-magnifying-glass"></i></a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+</div>
+	
+<div class="clear" style="margin-bottom:40px;"></div>
+<div class="border" style="margin-bottom:30px;"></div>
+</div>
+
+{% endblock %}

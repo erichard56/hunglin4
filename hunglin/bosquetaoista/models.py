@@ -79,14 +79,14 @@ class Evento(models.Model):
 	tipo = models.ForeignKey(TipoEvento, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=30)
 	descripcion = models.CharField(max_length=200)
-	fecha = models.DateField()
+	fecha = models.DateField(blank=True, null=True)
 
 	def __str__(self):
 		return(self.nombre)
 
 class Agenda(models.Model):
 	evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
-	fecha = models.DateField()
+	fecha = models.DateField(blank=True, null=True)
 	orador = models.ForeignKey(Persona, 
 		limit_choices_to = {'estado_id':1},
 		on_delete=models.CASCADE)
@@ -109,3 +109,17 @@ class Cursante(models.Model):
 class Frase(models.Model):
 	frase = models.CharField(max_length=500)
 	detalle = models.CharField(max_length=500)
+
+
+class Libro(models.Model):
+	color = models.CharField(max_length=30)
+	numero = models.IntegerField()
+	fecha_inicio = models.DateField(blank=True, null=True, auto_now_add=False)
+	fecha_cierre = models.DateField(blank=True, null=True, auto_now_add=False)
+
+class Acta(models.Model):
+	libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
+	nro_acta = models.IntegerField()
+	titulo = models.CharField(max_length=50)
+	claves = models.CharField(max_length=500)
+	

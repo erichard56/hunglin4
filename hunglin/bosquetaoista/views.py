@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 import datetime
+import os
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.contrib import messages
@@ -12,10 +14,21 @@ from django.db.models import Max, Q
 import random
 from bosquetaoista.models import Grado, Casa, Persona, \
 	TipoEvento, Evento, Agenda, Cursante, PersonaExtra, \
-	TipoExtra, TipoEstado, TipoDoc, TipoCursante, Frase
+	TipoExtra, TipoEstado, TipoDoc, TipoCursante, Frase, Libro, Acta
 from bosquetaoista.forms import GradoForm, CasaForm, PersonaForm, \
 	TipoEventoForm, EventoForm, AgendaForm, TipoExtraForm, \
-	PersonaExtraForm, LoginForm, RegistroForm, TipoDocForm, TipoEstadoForm
+	PersonaExtraForm, LoginForm, RegistroForm, TipoDocForm, TipoEstadoForm, \
+	LibroForm
+
+# folder inicial donde se almacenan los folios
+#
+#                    libros
+# ---------------------------------------------
+#        color1                  color2
+# ---------------------   ---------------------
+# acta1 acta2 ... actan   acta1 acta2 ... actan
+#
+ruta = str(settings.BASE_DIR) + "/media/images/libros/"
 
 def inicializar_bd():
 	# Tipo de Documento
@@ -200,7 +213,7 @@ def grado_am(request, id):
 				grado.nombre = request.POST['nombre']
 				grado.save()
 		else:
-			messages.error(request,f'Formulario con erroes')
+			messages.error(request,f'Formulario con errores')
 			for e in form.errors:
 				messages.error(request, f'error {e}')
 	return(redirect('grados_lista'))
@@ -567,6 +580,13 @@ def tipoeventos_lista(request):
 	ctx = { 'pagina':12, 'tipoeventos':tipoeventos }
 	return(render(request, 'tipoeventos_lista.html', ctx))
 
+@login_required
+def tipoevento_borrar(request, id):
+	tipoevento = TipoEvento.objects.get(pk=id)
+	tipoevento.delete()
+	tipoeventos = TipoEvento.objects.all().order_by('id')
+	ctx = { 'pagina':12, 'tipoeventos':tipoeventos }
+	return(render(request, 'tipoeventos_lista.html', ctx))
 
 @login_required
 def tipoevento_am(request, id):
@@ -608,6 +628,13 @@ def eventos_lista(request, orden):
 	ctx = { 'pagina':8, 'eventos':eventos }
 	return(render(request, 'eventos_lista.html', ctx))
 
+@login_required
+def evento_borrar(request, id):
+	evento = Evento.objects.get(pk=id)
+	evento.delete()
+	eventos = Evento.objects.all().order_by('tipo')
+	ctx = { 'pagina':8, 'eventos':eventos }
+	return(render(request, 'eventos_lista.html', ctx))
 
 @login_required
 def evento_am(request, id):
@@ -954,7 +981,6 @@ def carga_frases(request, flag):
 			regi1 = limpia(regi[1].strip())
 			i += 1
 			regi2 = limpia(Lines[i].strip())
-			print(f'_{nid}_{regi1}_{regi2}_{n}_')
 			frase = Frase()
 			frase.id = nid
 			frase.frase = regi1
@@ -964,4 +990,203 @@ def carga_frases(request, flag):
 			i += 1
 
 	return(redirect('/personas_lista/1'))
+
+# Libros
+@login_required
+def libros_lista(request):
+	librox = Libro.objects.all().order_by('fecha_inicio')
+	libros = []
+	for libro in librox:
+		cant = Acta.objects.filter(libro_id=libro.id).count()
+		libros.append([libro, cant])
+	ctx = { 'pagina':16, 'libros':libros }
+	return(render(request, 'libros_lista.html', ctx))
+
+
+@login_required
+def libro_am(request, id):
+
+	if (request.method == 'GET'):
+		if (id == 0):
+			form = LibroForm()
+			titulo = 'Nuevo Libro'
+		else:
+			libro = Libro.objects.get(pk = id)
+			form = LibroForm(instance=libro)
+			titulo = f'Modificacion Libro'
+		ctx = { 'pagina':16, 'titulo':titulo, 'form':form }
+		return(render(request, 'general_am.html', ctx))
+
+	elif (request.method == 'POST'):
+		form = LibroForm(request.POST, request.FILES)
+		if (form.is_valid()):
+			if (id == 0):
+				libro = Libro()
+			else:
+				libro = Libro.objects.get(pk = id)
+			libro.color = request.POST['color'].upper()
+			libro.numero = request.POST['numero']
+			fecha = request.POST['fecha_inicio']
+			if (fecha):
+				libro.fecha_inicio = fecha
+			else:
+				fecha = None
+			fecha = request.POST['fecha_cierre']
+			if (fecha):
+				libro.fecha_cierre = fecha
+			else:
+				fecha = None
+			libro.save()
+			ruta1 = '/'.join([ruta, libro.color])
+			os.makedirs(ruta1, exist_ok=True)
+		else:
+			messages.error(request,f'Formulario con errores')
+			for e in form.errors:
+				messages.error(request, f'error {e}')
+	return(redirect('libros_lista'))
+
+@login_required
+def libro_detalles(request, id):
+	libro = Libro.objects.get(pk=id)
+	actas = Acta.objects.filter(libro=id).order_by('nro_acta')
+	actxs = []
+	for acta in actas:
+		ruta1 = '/'.join([ruta, libro.color, str(acta.nro_acta)])
+		folios = []
+		for folio in sorted(os.listdir(ruta1)):
+			if os.path.isfile(os.path.join(ruta1, folio)):
+				folios.append(folio)
+		actxs.append([acta, len(folios)])
+	ctx = { 'pagina':16, 'libro':libro, 'actas':actxs}
+	return(render(request, 'libro_detalles.html', ctx))
+
+# Actas
+@login_required
+def actas_lista(request):
+	actas = Acta.objects.all().order_by('nro_acta')
+	ctx = { 'pagina':16, 'actas':actas }
+	return(render(request, 'actas_lista.html', ctx))
+
+@login_required
+def acta_am(request, libro_id, acta_id):
+	if (request.method == 'GET'):
+		if (acta_id == 0):
+			acta = Acta(None, libro_id, 0, None, None)
+			folios = None
+			titulo = 'Nueva Acta'
+			actax = Acta.objects.aggregate(Max('nro_acta'))
+			if (actax['nro_acta__max'] is None):
+				nro_acta = 1
+			else:
+				nro_acta = actax['nro_acta__max'] + 1
+			ruta1 = None
+		else:
+			acta = Acta.objects.get(pk=acta_id)
+			nro_acta = acta.nro_acta
+			libro = Libro.objects.get(pk=libro_id)
+			ruta1 = '/'.join([ruta, libro.color, str(acta.nro_acta)])
+			folios = []
+			for folio in sorted(os.listdir(ruta1)):
+				fn = os.path.join(ruta1, folio)
+				fn1 = '/'.join(["/media/images/libros", libro.color, str(acta.nro_acta), folio])
+				if os.path.isfile(fn) and folio[0] != '.':
+					folios.append([folio, fn, fn1])
+			titulo = f'Modificacion Acta'
+		ctx = { 'pagina':18, 'titulo':titulo, 'acta':acta, 'folios':folios, 
+			'nro_acta':nro_acta, 'ruta1':ruta1}
+		return(render(request, 'acta_am.html', ctx))
+
+	elif (request.method == 'POST'):
+		if (acta_id == 0):
+			acta = Acta(None, libro_id, None, None)
+		else:
+			acta = Acta.objects.get(pk=acta_id)
+		acta.nro_acta = request.POST['nro_acta']
+		acta.titulo = request.POST['titulo']
+		acta.claves = request.POST['claves']
+		acta.save()
+
+		libro = Libro.objects.get(pk=libro_id)
+		ruta1 = '/'.join([ruta, libro.color, str(acta.nro_acta)])
+		os.makedirs(ruta1, exist_ok=True)
+
+		if (request.FILES):
+			folio = request.FILES['folio']
+			libro = Libro.objects.get(pk=libro_id)
+			ruta2 = '/'.join([ruta, libro.color, str(acta.nro_acta), folio.name])
+			with open(ruta2, "wb+") as destination:
+				for chunk in folio.chunks():
+					destination.write(chunk)
+
+			folios = []
+			for folio in sorted(os.listdir(ruta1)):
+				fn = os.path.join(ruta1, folio)
+				fn1 = '/'.join(["/media/images/libros", libro.color, str(acta.nro_acta), folio])
+				if os.path.isfile(fn) and folio[0] != '.':
+					folios.append([folio, fn, fn1])
+			titulo = f'Modificacion Acta'
+			ctx = { 'pagina':18, 'titulo':titulo, 'acta':acta, 'folios':folios, 
+				'nro_acta':acta.nro_acta, 'ruta1':ruta1}
+			return(render(request, 'acta_am.html', ctx))
+
+		retorno = '/'.join(['/libro_detalles', str(libro_id)])
+		return(redirect(retorno))
+
+
+@login_required
+def acta_buscar(request):
+
+	if (request.method == 'GET'):
+		colores = Libro.objects.values_list('color', flat=True).distinct().order_by('color')
+		numeros = Libro.objects.values_list('numero', flat=True).distinct().order_by('numero')
+		ctx = { 'pagina':18, 'colores':colores, 'numeros':numeros}
+		return(render(request, 'acta_buscar.html', ctx))
+
+	elif (request.method == 'POST'):
+
+		sqlstmt = 'SELECT * FROM bosquetaoista_acta WHERE '
+		clavex = request.POST['claves']
+		sql1 = None
+		if (clavex):
+			sql1 = "("			
+			claves = clavex.split(",")
+			for clave in claves:
+				sql1 += " claves like '%%" + clave + "%%' OR " 
+			sql1 += " 1 = 0)"
+
+		color = request.POST['color']
+		if (color != "Todos"):
+			libro = Libro.objects.filter(color=color)
+			sql2 = " (libro_id = " + str(libro[0].id) + " ) "
+		else:
+			sql2 = " ( 1 = 1 ) "
+
+		if (sql1):
+			sqlstmt += sql1 + " AND " + sql2
+		else:
+			sqlstmt += sql2
+		print(sqlstmt)
+		actas = Acta.objects.raw(sqlstmt)
+		ctx = { 'pagina':16, 'actas':actas }
+		return(render(request, 'actas_lista.html', ctx))
+
+# Folios
+@login_required
+def folio_borrar(request, nro_acta, folio):
+	acta = Acta.objects.get(nro_acta=nro_acta)
+	libro = Libro.objects.get(pk=acta.libro.id)
+	arch = '/'.join([ruta, libro.color, str(nro_acta), folio])
+	if os.path.exists(arch):
+		os.remove(arch)
+	ruta1 = '/'.join([ruta, libro.color, str(nro_acta)])
+	folios = []
+	for nombre in sorted(os.listdir(ruta1)):
+		fn = os.path.join(ruta1, nombre)
+		fn1 = '/'.join(["/media/images/libros", libro.color, str(nro_acta), nombre])
+		if os.path.isfile(fn) and nombre[0] != '.':
+			folios.append([nombre, fn, fn1])
+	titulo = f'Modificacion Acta'
+	ctx = { 'pagina':18, 'titulo':titulo, 'acta':acta, 'folios':folios, 'nro_acta':nro_acta, 
+				'ruta1':ruta1}
+	return(render(request, 'acta_am.html', ctx))
 
